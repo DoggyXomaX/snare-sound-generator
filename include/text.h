@@ -12,39 +12,21 @@
 #define STR(x) #x
 
 #if LANG_RU
-    #define TEXT_HELP_STRING (\
-        "Утилита для генерации случайного набора кусков разных частот.\n"                    \
-        "Использование:\n"                                                                   \
-        "    " PROGRAM_NAME "\n"                                                             \
-        "        [" ARG_FILENAME_SHORT "|" ARG_FILENAME " <имя_файла>]\n"                    \
-        "        [" ARG_BITS_PER_SAMPLE_SHORT "|" ARG_BITS_PER_SAMPLE " <количество_бит>]\n" \
-        "        [" ARG_SAMPLE_RATE_SHORT "|" ARG_SAMPLE_RATE " <частота_дескретизации>]\n"  \
-        "        [" ARG_CHANNEL_COUNT_SHORT "|" ARG_CHANNEL_COUNT " <количество_каналов>]\n" \
-        "        [" ARG_MAX_FREQUENCY_SHORT "|" ARG_MAX_FREQUENCY " <макс_частота>]\n"       \
-        "        [" ARG_MIN_FREQUENCY_SHORT "|" ARG_MIN_FREQUENCY " <мин_частота>]\n"        \
-        "        [" ARG_COUNT_SHORT "|" ARG_COUNT " <количество_кусков>]\n"                  \
-        "        [" ARG_DURATION_SHORT "|" ARG_DURATION " <длительность>]\n"                 \
-        "        [" ARG_SEED_SHORT "|" ARG_SEED " <ключ_генерации>]\n"                       \
-        "    " PROGRAM_NAME " [" ARG_HELP_SHORT "|" ARG_HELP "|" ARG_HELP_ALT "]\n"          \
-        "Стандартные значения:\n"                                                            \
-        "    имя_файла: " DEFAULT_FILENAME "\n"                                              \
-        "    количество_бит: " XSTR(DEFAULT_BITS_PER_SAMPLE) "\n"                            \
-        "    частота_дескретизации: " XSTR(DEFAULT_SAMPLE_RATE) "\n"                         \
-        "    количество_каналов: " XSTR(DEFAULT_CHANNEL_COUNT) "\n"                          \
-        "    макс_частота: " XSTR(DEFAULT_MAX_FREQUENCY) "\n"                                \
-        "    мин_частота: " XSTR(DEFAULT_MIN_FREQUENCY) "\n"                                 \
-        "    количество_кусков: " XSTR(DEFAULT_COUNT) "\n"                                   \
-        "    длительность: " XSTR(DEFAULT_DURATION) "\n"                                     \
-        "    ключ_генерации: Текущее UNIX время\n"                                           \
-        "Пример:\n"                                                                          \
-        "    " PROGRAM_NAME " \\\n"                                                           \
-        "        " ARG_FILENAME_SHORT " sound0.wav \\\n"                                     \
-        "        " ARG_SAMPLE_RATE_SHORT " 48000 \\\n"                                       \
-        "        " ARG_MIN_FREQUENCY_SHORT " 220 \\\n"                                       \
-        "        " ARG_MAX_FREQUENCY_SHORT " 440 \\\n"                                       \
-        "        " ARG_COUNT_SHORT " 16 \\\n"                                                \
-        "        " ARG_SEED_SHORT " 12345678\n"                                              \
-        "    " PROGRAM_NAME " " ARG_FILENAME_SHORT " sound1.wav")
+    #define TEXT_HELP_STRING_HEADER                "Утилита для генерации случайного набора кусков разных частот."
+    #define TEXT_HELP_STRING_USAGE                 "Использование:"
+    #define TEXT_HELP_STRING_PARAM_FILENAME        "имя_файла"
+    #define TEXT_HELP_STRING_PARAM_BITS_PER_SAMPLE "количество_бит"
+    #define TEXT_HELP_STRING_PARAM_SAMPLE_RATE     "частота_дескретизации"
+    #define TEXT_HELP_STRING_PARAM_CHANNEL_COUNT   "количество_каналов"
+    #define TEXT_HELP_STRING_PARAM_MAX_FREQUENCY   "макс_частота"
+    #define TEXT_HELP_STRING_PARAM_MIN_FREQUENCY   "мин_частота"
+    #define TEXT_HELP_STRING_PARAM_COUNT           "количество_кусков"
+    #define TEXT_HELP_STRING_PARAM_DURATION        "длительность"
+    #define TEXT_HELP_STRING_PARAM_SEED            "ключ_генерации"
+    #define TEXT_HELP_STRING_UNIX_TIME             "Текущее UNIX время"
+    #define TEXT_HELP_STRING_STANDARD              "Стандартные значения:"
+    #define TEXT_HELP_STRING_EXAMPLE               "Пример:"
+
     #define TEXT_CREATE_STRUCTURE "Создаем структуру"
     #define TEXT_SET_PARAMS "Задаем параметры и выделяем память для генерации"
     #define TEXT_GENERATION "Генерация..."
@@ -69,39 +51,21 @@
     #define TEXT_WAV_PATH_NULL "WaveUnit_Save: path не определен (null)"
     #define TEXT_WAV_FAILED_OPEN_FILE "Не удалось открыть файл \"%s\". Ошибка №%d: %s\n"
 #else
-    #define TEXT_HELP_STRING (\
-        "A utility for generating a random set of chunks of different frequencies.\n"         \
-        "Usage:\n"                                                                            \
-        "    " PROGRAM_NAME "\n"                                                              \
-        "        [" ARG_FILENAME_SHORT "|" ARG_FILENAME " <filename>]\n"                      \
-        "        [" ARG_BITS_PER_SAMPLE_SHORT "|" ARG_BITS_PER_SAMPLE " <bits_per_sample>]\n" \
-        "        [" ARG_SAMPLE_RATE_SHORT "|" ARG_SAMPLE_RATE " <sample_rate>]\n"             \
-        "        [" ARG_CHANNEL_COUNT_SHORT "|" ARG_CHANNEL_COUNT " <channel_count>]\n"       \
-        "        [" ARG_MAX_FREQUENCY_SHORT "|" ARG_MAX_FREQUENCY " <max_frequency>]\n"       \
-        "        [" ARG_MIN_FREQUENCY_SHORT "|" ARG_MIN_FREQUENCY " <min_frequency>]\n"       \
-        "        [" ARG_COUNT_SHORT "|" ARG_COUNT " <slice_count>]\n"                         \
-        "        [" ARG_DURATION_SHORT "|" ARG_DURATION " <duration>]\n"                      \
-        "        [" ARG_SEED_SHORT "|" ARG_SEED " <seed>]\n"                                  \
-        "    " PROGRAM_NAME " [" ARG_HELP_SHORT "|" ARG_HELP "|" ARG_HELP_ALT "]\n"           \
-        "Default values:\n"                                                                   \
-        "    filename: " DEFAULT_FILENAME "\n"                                                \
-        "    bits_per_sample: " XSTR(DEFAULT_BITS_PER_SAMPLE) "\n"                            \
-        "    sample_rate: " XSTR(DEFAULT_SAMPLE_RATE) "\n"                                    \
-        "    channel_count: " XSTR(DEFAULT_CHANNEL_COUNT) "\n"                                \
-        "    max_frequency: " XSTR(DEFAULT_MAX_FREQUENCY) "\n"                                \
-        "    min_frequency: " XSTR(DEFAULT_MIN_FREQUENCY) "\n"                                \
-        "    slice_count: " XSTR(DEFAULT_COUNT) "\n"                                          \
-        "    duration: " XSTR(DEFAULT_DURATION) "\n"                                          \
-        "    seed: Current UNIX time\n"                                                       \
-        "Example:\n"                                                                          \
-        "    " PROGRAM_NAME " \\\n"                                                            \
-        "        " ARG_FILENAME_SHORT " sound0.wav \\\n"                                      \
-        "        " ARG_SAMPLE_RATE_SHORT " 48000 \\\n"                                        \
-        "        " ARG_MIN_FREQUENCY_SHORT " 220 \\\n"                                        \
-        "        " ARG_MAX_FREQUENCY_SHORT " 440 \\\n"                                        \
-        "        " ARG_COUNT_SHORT " 16 \\\n"                                                 \
-        "        " ARG_SEED_SHORT " 12345678\n"                                               \
-        "    " PROGRAM_NAME " " ARG_FILENAME_SHORT " sound1.wav")
+    #define TEXT_HELP_STRING_HEADER                "A utility for generating a random set of chunks of different frequencies."
+    #define TEXT_HELP_STRING_USAGE                 "Usage:"
+    #define TEXT_HELP_STRING_PARAM_FILENAME        "filename"
+    #define TEXT_HELP_STRING_PARAM_BITS_PER_SAMPLE "bits_per_sample"
+    #define TEXT_HELP_STRING_PARAM_SAMPLE_RATE     "sample_rate"
+    #define TEXT_HELP_STRING_PARAM_CHANNEL_COUNT   "channel_count"
+    #define TEXT_HELP_STRING_PARAM_MAX_FREQUENCY   "max_frequency"
+    #define TEXT_HELP_STRING_PARAM_MIN_FREQUENCY   "min_frequency"
+    #define TEXT_HELP_STRING_PARAM_COUNT           "slice_count"
+    #define TEXT_HELP_STRING_PARAM_DURATION        "duration"
+    #define TEXT_HELP_STRING_PARAM_SEED            "seed"
+    #define TEXT_HELP_STRING_UNIX_TIME             "Current UNIX time"
+    #define TEXT_HELP_STRING_STANDARD              "Default values:"
+    #define TEXT_HELP_STRING_EXAMPLE               "Example:"
+    
     #define TEXT_CREATE_STRUCTURE "Creating structure"
     #define TEXT_SET_PARAMS "Set params and allocate memory for generation"
     #define TEXT_GENERATION "Generating..."
@@ -126,5 +90,39 @@
     #define TEXT_WAV_PATH_NULL "WaveUnit_Save: path is null"
     #define TEXT_WAV_FAILED_OPEN_FILE "Failed to open file \"%s\". Error #%d: %s\n"
 #endif
+
+#define TEXT_HELP_STRING (\
+    TEXT_HELP_STRING_HEADER "\n"                                                                                     \
+    TEXT_HELP_STRING_USAGE "\n"                                                                                      \
+    "    " PROGRAM_NAME "\n"                                                                                         \
+    "        [" ARG_FILENAME_SHORT "|" ARG_FILENAME " <" TEXT_HELP_STRING_PARAM_FILENAME ">]\n"                      \
+    "        [" ARG_BITS_PER_SAMPLE_SHORT "|" ARG_BITS_PER_SAMPLE " <" TEXT_HELP_STRING_PARAM_BITS_PER_SAMPLE ">]\n" \
+    "        [" ARG_SAMPLE_RATE_SHORT "|" ARG_SAMPLE_RATE " <" TEXT_HELP_STRING_PARAM_SAMPLE_RATE ">]\n"             \
+    "        [" ARG_CHANNEL_COUNT_SHORT "|" ARG_CHANNEL_COUNT " <" TEXT_HELP_STRING_PARAM_CHANNEL_COUNT ">]\n"       \
+    "        [" ARG_MAX_FREQUENCY_SHORT "|" ARG_MAX_FREQUENCY " <" TEXT_HELP_STRING_PARAM_MAX_FREQUENCY ">]\n"       \
+    "        [" ARG_MIN_FREQUENCY_SHORT "|" ARG_MIN_FREQUENCY " <" TEXT_HELP_STRING_PARAM_MIN_FREQUENCY ">]\n"       \
+    "        [" ARG_COUNT_SHORT "|" ARG_COUNT " <" TEXT_HELP_STRING_PARAM_COUNT ">]\n"                               \
+    "        [" ARG_DURATION_SHORT "|" ARG_DURATION " <" TEXT_HELP_STRING_PARAM_DURATION ">]\n"                      \
+    "        [" ARG_SEED_SHORT "|" ARG_SEED " <" TEXT_HELP_STRING_PARAM_SEED ">]\n"                                  \
+    "    " PROGRAM_NAME " [" ARG_HELP_SHORT "|" ARG_HELP "|" ARG_HELP_ALT "]\n"                                      \
+    TEXT_HELP_STRING_STANDARD "\n"                                                                                   \
+    "    " TEXT_HELP_STRING_PARAM_FILENAME ": " DEFAULT_FILENAME "\n"                                                \
+    "    " TEXT_HELP_STRING_PARAM_BITS_PER_SAMPLE ": " XSTR(DEFAULT_BITS_PER_SAMPLE) "\n"                            \
+    "    " TEXT_HELP_STRING_PARAM_SAMPLE_RATE ": " XSTR(DEFAULT_SAMPLE_RATE) "\n"                                    \
+    "    " TEXT_HELP_STRING_PARAM_CHANNEL_COUNT ": " XSTR(DEFAULT_CHANNEL_COUNT) "\n"                                \
+    "    " TEXT_HELP_STRING_PARAM_MAX_FREQUENCY ": " XSTR(DEFAULT_MAX_FREQUENCY) "\n"                                \
+    "    " TEXT_HELP_STRING_PARAM_MIN_FREQUENCY ": " XSTR(DEFAULT_MIN_FREQUENCY) "\n"                                \
+    "    " TEXT_HELP_STRING_PARAM_COUNT ": " XSTR(DEFAULT_COUNT) "\n"                                                \
+    "    " TEXT_HELP_STRING_PARAM_DURATION ": " XSTR(DEFAULT_DURATION) "\n"                                          \
+    "    " TEXT_HELP_STRING_PARAM_SEED ": " TEXT_HELP_STRING_UNIX_TIME "\n"                                          \
+    TEXT_HELP_STRING_EXAMPLE "\n"                                                                                    \
+    "    " PROGRAM_NAME " \\\n"                                                                                      \
+    "        " ARG_FILENAME_SHORT " sound0.wav \\\n"                                                                 \
+    "        " ARG_SAMPLE_RATE_SHORT " 48000 \\\n"                                                                   \
+    "        " ARG_MIN_FREQUENCY_SHORT " 220 \\\n"                                                                   \
+    "        " ARG_MAX_FREQUENCY_SHORT " 440 \\\n"                                                                   \
+    "        " ARG_COUNT_SHORT " 16 \\\n"                                                                            \
+    "        " ARG_SEED_SHORT " 12345678\n"                                                                          \
+    "    " PROGRAM_NAME " " ARG_FILENAME_SHORT " sound1.wav")
 
 #endif
