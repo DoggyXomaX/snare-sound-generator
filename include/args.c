@@ -1,6 +1,6 @@
 #include "args.h"
 
-#define ArgIs(a, x) (strcmp((a), x##_SHORT) == 0 || strcmp((a), x))
+#define ArgIs(a, x) (strcmp((a), x##_SHORT) == 0 || strcmp((a), x) == 0)
 
 bool IsHelp(int argc, char *argv[]) {
     return argc > 1 && (
