@@ -1,46 +1,52 @@
 #ifndef __PROGRAM_TEXT_H__
 #define __PROGRAM_TEXT_H__
 
+#include "args.h"
+
 #ifndef PROGRAM_NAME
 #define PROGRAM_NAME "snare_sound.exe"
 #endif
 
+// https://stackoverflow.com/questions/1562074/how-do-i-show-the-value-of-a-define-at-compile-time
+#define XSTR(x) STR(x)
+#define STR(x) #x
+
 // Как с этим препроцессором договориться? Почему мне надо всё это в printf_s сувать?!
 // Дефайны из args.h на этапе препроцессора как-будто не видны
 #if LANG_RU
-    #define TEXT_HELP_STRING \
-        "Утилита для генерации случайного набора кусков разных частот.\n" \
-        "Использование:\n"                                                \
-        "    " PROGRAM_NAME "\n"                                          \
-        "        [%s | %s <имя_файла>]\n"                                 \
-        "        [%s | %s <количество_бит>\n"                             \
-        "        [%s | %s <частота_дескретизации>]\n"                     \
-        "        [%s | %s <количество_каналов>]\n"                        \
-        "        [%s | %s <макс_частота>]\n"                              \
-        "        [%s | %s <мин_частота>]\n"                               \
-        "        [%s | %s <количество_кусков>]\n"                         \
-        "        [%s | %s <длительность>]\n"                              \
-        "        [%s | %s <ключ_генерации>]\n"                            \
-        "    " PROGRAM_NAME " [%s] [%s] [%s]\n"                           \
-        "Стандартные значения:\n"                                         \
-        "    имя_файла: %s\n"                                             \
-        "    количество_бит: %u\n"                                        \
-        "    частота_дескретизации: %u\n"                                 \
-        "    количество_каналов: %u\n"                                    \
-        "    макс_частота: %.2llf\n"                                      \
-        "    мин_частота: %.2llf\n"                                       \
-        "    количество_кусков: %u\n"                                     \
-        "    длительность: %.2llf\n"                                      \
-        "    ключ_генерации: Текущее UNIX время\n"                        \
-        "Пример:\n"                                                       \
-        "    " PROGRAM_NAME "\\\n"                                        \
-        "        %s sound0.wav \\\n"                                      \
-        "        %s 48000 \\\n"                                           \
-        "        %s 220 \\\n"                                             \
-        "        %s 440 \\\n"                                             \
-        "        %s 16 \\\n"                                              \
-        "        %s 12345678\n"                                           \
-        "    " PROGRAM_NAME " %s sound1.wav"
+    #define TEXT_HELP_STRING (\
+        "Утилита для генерации случайного набора кусков разных частот.\n"                    \
+        "Использование:\n"                                                                   \
+        "    " PROGRAM_NAME "\n"                                                             \
+        "        [" ARG_FILENAME_SHORT "|" ARG_FILENAME " <имя_файла>]\n"                    \
+        "        [" ARG_BITS_PER_SAMPLE_SHORT "|" ARG_BITS_PER_SAMPLE " <количество_бит>]\n" \
+        "        [" ARG_SAMPLE_RATE_SHORT "|" ARG_SAMPLE_RATE " <частота_дескретизации>]\n"  \
+        "        [" ARG_CHANNEL_COUNT_SHORT "|" ARG_CHANNEL_COUNT " <количество_каналов>]\n" \
+        "        [" ARG_MAX_FREQUENCY_SHORT "|" ARG_MAX_FREQUENCY " <макс_частота>]\n"       \
+        "        [" ARG_MIN_FREQUENCY_SHORT "|" ARG_MIN_FREQUENCY " <мин_частота>]\n"        \
+        "        [" ARG_COUNT_SHORT "|" ARG_COUNT " <количество_кусков>]\n"                  \
+        "        [" ARG_DURATION_SHORT "|" ARG_DURATION " <длительность>]\n"                 \
+        "        [" ARG_SEED_SHORT "|" ARG_SEED " <ключ_генерации>]\n"                       \
+        "    " PROGRAM_NAME " [" ARG_HELP_SHORT "|" ARG_HELP "|" ARG_HELP_ALT "]\n"          \
+        "Стандартные значения:\n"                                                            \
+        "    имя_файла: " DEFAULT_FILENAME "\n"                                              \
+        "    количество_бит: " XSTR(DEFAULT_BITS_PER_SAMPLE) "\n"                            \
+        "    частота_дескретизации: " XSTR(DEFAULT_SAMPLE_RATE) "\n"                         \
+        "    количество_каналов: " XSTR(DEFAULT_CHANNEL_COUNT) "\n"                          \
+        "    макс_частота: " XSTR(DEFAULT_MAX_FREQUENCY) "\n"                                \
+        "    мин_частота: " XSTR(DEFAULT_MIN_FREQUENCY) "\n"                                 \
+        "    количество_кусков: " XSTR(DEFAULT_COUNT) "\n"                                   \
+        "    длительность: " XSTR(DEFAULT_DURATION) "\n"                                     \
+        "    ключ_генерации: Текущее UNIX время\n"                                           \
+        "Пример:\n"                                                                          \
+        "    " PROGRAM_NAME " \\\n"                                                           \
+        "        " ARG_FILENAME_SHORT " sound0.wav \\\n"                                     \
+        "        " ARG_SAMPLE_RATE_SHORT " 48000 \\\n"                                       \
+        "        " ARG_MIN_FREQUENCY_SHORT " 220 \\\n"                                       \
+        "        " ARG_MAX_FREQUENCY_SHORT " 440 \\\n"                                       \
+        "        " ARG_COUNT_SHORT " 16 \\\n"                                                \
+        "        " ARG_SEED_SHORT " 12345678\n"                                              \
+        "    " PROGRAM_NAME " " ARG_FILENAME_SHORT " sound1.wav")
     #define TEXT_CREATE_STRUCTURE "Создаем структуру"
     #define TEXT_SET_PARAMS "Задаем параметры и выделяем память для генерации"
     #define TEXT_GENERATION "Генерация..."
@@ -65,39 +71,39 @@
     #define TEXT_WAV_PATH_NULL "WaveUnit_Save: path не определен (null)"
     #define TEXT_WAV_FAILED_OPEN_FILE "Не удалось открыть файл \"%s\". Ошибка №%d: %s\n"
 #else
-    #define TEXT_HELP_STRING \
-        "A utility for generating a random set of chunks of different frequencies.\n" \
-        "Usage:\n"                                                                    \
-        "    " PROGRAM_NAME "\n"                                                      \
-        "        [%s | %s <filename>]\n"                                              \
-        "        [%s | %s <bits_per_sample>\n"                                        \
-        "        [%s | %s <sample_rate>]\n"                                           \
-        "        [%s | %s <channel_count>]\n"                                         \
-        "        [%s | %s <max_frequency>]\n"                                         \
-        "        [%s | %s <min_frequency>]\n"                                         \
-        "        [%s | %s <slice_count>]\n"                                           \
-        "        [%s | %s <duration>]\n"                                              \
-        "        [%s | %s <seed>]\n"                                                  \
-        "    " PROGRAM_NAME " [%s] [%s] [%s]\n"                                       \
-        "Default values:\n"                                                           \
-        "    filename: %s\n"                                                          \
-        "    bits_per_sample: %u\n"                                                   \
-        "    sample_rate: %u\n"                                                       \
-        "    channel_count: %u\n"                                                     \
-        "    max_frequency: %.2llf\n"                                                 \
-        "    min_frequency: %.2llf\n"                                                 \
-        "    slice_count: %u\n"                                                       \
-        "    duration: %.2llf\n"                                                      \
-        "    seed: Current UNIX time\n"                                               \
-        "Example:\n"                                                                  \
-        "    " PROGRAM_NAME "\\\n"                                                    \
-        "        %s sound0.wav \\\n"                                                  \
-        "        %s 48000 \\\n"                                                       \
-        "        %s 220 \\\n"                                                         \
-        "        %s 440 \\\n"                                                         \
-        "        %s 16 \\\n"                                                          \
-        "        %s 12345678\n"                                                       \
-        "    " PROGRAM_NAME " %s sound1.wav"
+    #define TEXT_HELP_STRING (\
+        "A utility for generating a random set of chunks of different frequencies.\n"         \
+        "Usage:\n"                                                                            \
+        "    " PROGRAM_NAME "\n"                                                              \
+        "        [" ARG_FILENAME_SHORT "|" ARG_FILENAME " <filename>]\n"                      \
+        "        [" ARG_BITS_PER_SAMPLE_SHORT "|" ARG_BITS_PER_SAMPLE " <bits_per_sample>]\n" \
+        "        [" ARG_SAMPLE_RATE_SHORT "|" ARG_SAMPLE_RATE " <sample_rate>]\n"             \
+        "        [" ARG_CHANNEL_COUNT_SHORT "|" ARG_CHANNEL_COUNT " <channel_count>]\n"       \
+        "        [" ARG_MAX_FREQUENCY_SHORT "|" ARG_MAX_FREQUENCY " <max_frequency>]\n"       \
+        "        [" ARG_MIN_FREQUENCY_SHORT "|" ARG_MIN_FREQUENCY " <min_frequency>]\n"       \
+        "        [" ARG_COUNT_SHORT "|" ARG_COUNT " <slice_count>]\n"                         \
+        "        [" ARG_DURATION_SHORT "|" ARG_DURATION " <duration>]\n"                      \
+        "        [" ARG_SEED_SHORT "|" ARG_SEED " <seed>]\n"                                  \
+        "    " PROGRAM_NAME " [" ARG_HELP_SHORT "|" ARG_HELP "|" ARG_HELP_ALT "]\n"           \
+        "Default values:\n"                                                                   \
+        "    filename: " DEFAULT_FILENAME "\n"                                                \
+        "    bits_per_sample: " XSTR(DEFAULT_BITS_PER_SAMPLE) "\n"                            \
+        "    sample_rate: " XSTR(DEFAULT_SAMPLE_RATE) "\n"                                    \
+        "    channel_count: " XSTR(DEFAULT_CHANNEL_COUNT) "\n"                                \
+        "    max_frequency: " XSTR(DEFAULT_MAX_FREQUENCY) "\n"                                \
+        "    min_frequency: " XSTR(DEFAULT_MIN_FREQUENCY) "\n"                                \
+        "    slice_count: " XSTR(DEFAULT_COUNT) "\n"                                          \
+        "    duration: " XSTR(DEFAULT_DURATION) "\n"                                          \
+        "    seed: Current UNIX time\n"                                                       \
+        "Example:\n"                                                                          \
+        "    " PROGRAM_NAME " \\\n"                                                            \
+        "        " ARG_FILENAME_SHORT " sound0.wav \\\n"                                      \
+        "        " ARG_SAMPLE_RATE_SHORT " 48000 \\\n"                                        \
+        "        " ARG_MIN_FREQUENCY_SHORT " 220 \\\n"                                        \
+        "        " ARG_MAX_FREQUENCY_SHORT " 440 \\\n"                                        \
+        "        " ARG_COUNT_SHORT " 16 \\\n"                                                 \
+        "        " ARG_SEED_SHORT " 12345678\n"                                               \
+        "    " PROGRAM_NAME " " ARG_FILENAME_SHORT " sound1.wav")
     #define TEXT_CREATE_STRUCTURE "Creating structure"
     #define TEXT_SET_PARAMS "Set params and allocate memory for generation"
     #define TEXT_GENERATION "Generating..."
