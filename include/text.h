@@ -16,7 +16,7 @@
     #define TEXT_HELP_STRING_USAGE                 "Использование:"
     #define TEXT_HELP_STRING_PARAM_FILENAME        "имя_файла"
     #define TEXT_HELP_STRING_PARAM_BITS_PER_SAMPLE "количество_бит"
-    #define TEXT_HELP_STRING_PARAM_SAMPLE_RATE     "частота_дескретизации"
+    #define TEXT_HELP_STRING_PARAM_SAMPLE_RATE     "частота_дискретизации"
     #define TEXT_HELP_STRING_PARAM_CHANNEL_COUNT   "количество_каналов"
     #define TEXT_HELP_STRING_PARAM_MAX_FREQUENCY   "макс_частота"
     #define TEXT_HELP_STRING_PARAM_MIN_FREQUENCY   "мин_частота"
@@ -39,7 +39,7 @@
         "Входные параметры:\n"               \
         "    Имя файла: %s\n"                \
         "    Количество бит на сэпмл: %u\n"  \
-        "    Частота дескретизации: %u\n"    \
+        "    Частота дискретизации: %u\n"    \
         "    Количество каналов: %u\n"       \
         "    Максимальная частота: %.2llf\n" \
         "    Минимальная частота: %.2llf\n"  \
