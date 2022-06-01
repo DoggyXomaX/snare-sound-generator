@@ -5,6 +5,7 @@
 ```bash
 make
 ```
+или
 ```bash
 make en
 ```
